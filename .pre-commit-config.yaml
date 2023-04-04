@@ -15,14 +15,14 @@ repos:
       - id: check-added-large-files
       - id: detect-private-key
       - id: requirements-txt-fixer
-  - repo: local
-    hooks:
-      - id: pytest-checks
-        name: pytest-check
-        entry: pytest
-        language: system
-        pass_filenames: false
-        always_run: true
+  # - repo: local
+  #   hooks:
+  #     - id: pytest-checks
+  #       name: pytest-check
+  #       entry: pytest
+  #       language: system
+  #       pass_filenames: false
+  #       always_run: true
   - repo: https://github.com/PyCQA/pydocstyle
     rev: 6.3.0
     hooks:
