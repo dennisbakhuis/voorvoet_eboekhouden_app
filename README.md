@@ -4,6 +4,8 @@ This tool is used to import data from James EPD and Zettle into E-boekhouden.nl.
 I have made this tool for my wife such that she can easily import data from her EPD
 and Zettle into her bookkeeping software.
 
+![Screenshot of the main app.](https://github.com/dennisbakhuis/voorvoet_eboekhouden_app/blob/main/assets/screenshot1.png?raw=true)
+
 ## Installation and local run
 1. Clone the repository
 2. Run `conda env create -f environment.yml`
