@@ -7,4 +7,13 @@ install-pre-commit: ## Install pre-commit hooks
 test: ## Run pytest and report coverage
 	pytest --cov-report term-missing --cov=voorvoet_app
 
+requirements: ## create requirements.txt
+	poetry export --without-hashes --format=requirements.txt > requirements.txt
+
+docker: ## Build docker image
+	poetry export --without-hashes --format=requirements.txt > requirements.txt
+	docker build --platform=linux/amd64 -t voorvoet_eboekhouden_app .
+	docker tag voorvoet_eboekhouden_app dennisbakhuis/voorvoet_eboekhouden_app
+	docker push dennisbakhuis/voorvoet_eboekhouden_app
+
 .PHONY: help init test

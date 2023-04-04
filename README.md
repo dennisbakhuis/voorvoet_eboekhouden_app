@@ -10,3 +10,18 @@ and Zettle into her bookkeeping software.
 3. Run `conda activate voorvoet_app`
 4. Run `poetry install`
 5. Run `streamlit run voorvoet_app/voorvoet_app.py`
+
+## Run using Docker
+```bash
+docker run --rm -d \
+  -e EBOEKHOUDEN_USERNAME=eboekhouden_username \
+  -e EBOEKHOUDEN_CODE1=eboekhouden_code1 \
+  -e EBOEKHOUDEN_CODE2=eboekhouden_code2 \
+  dennisbakhuis/voorvoer_eboekhouden_app:latest
+```
+
+## Create your own deployment
+You might want to change your docker hub username in the `Makefile`.
+```bash
+make docker
+```
