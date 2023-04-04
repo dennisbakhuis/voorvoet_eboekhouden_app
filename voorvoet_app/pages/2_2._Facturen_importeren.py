@@ -65,7 +65,6 @@ if uploaded_facturen_file is not None:
             st.markdown(f"**Er zijn {len(new_facturen)} nieuwe facturen gevonden.**")
             has_new_facturen = True
 
-    has_new_facturen = True
     if has_new_facturen:
         st.markdown(
             """

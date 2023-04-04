@@ -41,8 +41,7 @@ st.markdown(
     `Upload nieuwe facturen`. Je hebt nu alle nieuwe facturen in E-boekhouden.nl staan.
 
     ### Opmerkingen
-    Standaard kunnen geen records die vanuit James komen in E-boekhouden overschreven. Bestaande
-    records worden genegeerd.
+    Standaard worden geen records in E-boekhouden overschreven. Bestaande records worden genegeerd.
 """
 )
 

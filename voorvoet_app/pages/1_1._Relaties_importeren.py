@@ -72,7 +72,6 @@ if uploaded_relatie_file is not None:
             st.markdown(f"**Er zijn {len(new_relaties)} nieuwe relaties gevonden.**")
             has_new_relaties = True
 
-    has_new_relaties = True
     if has_new_relaties:
         st.markdown(
             """
