@@ -1,0 +1,5 @@
+name: voorvoet_app
+channels:
+  - default
+dependencies:
+  - python=3.11
