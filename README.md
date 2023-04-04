@@ -1,4 +1,4 @@
-# VoorVoet Importer tool
+# VoorVoet James EPD -> E-boekhouden.nl importer tool
 This tool is used to import data from James EPD and Zettle into E-boekhouden.nl.
 
 I have made this tool for my wife such that she can easily import data from her EPD
