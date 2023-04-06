@@ -25,7 +25,7 @@ def process_relaties(
             Vestigingsadres=relaties_raw.apply(
                 lambda x: f"{x['Straat'].strip()} {x['Huisnummer inclusief toevoeging']}"
                 if isinstance(x["Volledige naam"], str)
-                else None,
+                else None,  # type: ignore
                 axis=1,
             ),
             relatie_code=relaties_raw.apply(

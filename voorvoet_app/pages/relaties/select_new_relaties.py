@@ -9,7 +9,7 @@ def select_new_relaties(
     """Select new relaties from relaties_raw."""
     client = ebh.EboekhoudenClient()
     existing_relaties = client.get_relaties()
-    existing_relatie_codes = [x["Code"] for x in existing_relaties]
+    existing_relatie_codes = [x.relatie_code for x in existing_relaties]
 
     new_relaties = relaties_raw.loc[~relaties_raw["relatie_code"].isin(existing_relatie_codes)]
 

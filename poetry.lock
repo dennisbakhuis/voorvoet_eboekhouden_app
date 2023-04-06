@@ -644,14 +644,14 @@ files = [
 
 [[package]]
 name = "eboekhouden-python"
-version = "0.1.5"
+version = "0.2.0"
 description = "This is a simple API client for the E-boekhouden.nl API. It is written in Python and uses the ZEEP library."
 category = "main"
 optional = false
 python-versions = ">=3.9,<4.0"
 files = [
-    {file = "eboekhouden_python-0.1.5-py3-none-any.whl", hash = "sha256:1f69f95a70cda474c4fbf43ea9425dca9b53021c09ba867cacc8b0e6faa1dc11"},
-    {file = "eboekhouden_python-0.1.5.tar.gz", hash = "sha256:e72857f7dcb3b3c3fe86fe1b8ae177dca3d313951ded804c06a16373b875582e"},
+    {file = "eboekhouden_python-0.2.0-py3-none-any.whl", hash = "sha256:cc738396fe0619863cbc6913ebb2e51fa1b37c75af65fdab94d7b0a90076638b"},
+    {file = "eboekhouden_python-0.2.0.tar.gz", hash = "sha256:b1933de7d38460bf9bc89a4873c50ac10a31cbaae6fec4b11efe13b0cd490806"},
 ]
 
 [package.dependencies]
@@ -3290,4 +3290,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "61a807360b4c8e252f2ed0915d795309c5ca70a128ad406f07dc6e08624a5258"
+content-hash = "c68ebbef8d8f9542f9ffcccd9f85df28710464f93c026db70369e90b1679fada"

@@ -7,10 +7,10 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 
 
 btw_codes = {
-    0: ebh.BtwCode.geen,
-    0.0: ebh.BtwCode.geen,
-    0.21: ebh.BtwCode.hoog_verkoop_21,
-    0.09: ebh.BtwCode.laag_verkoop_9,
+    0: ebh.constants.BtwCode.geen,
+    0.0: ebh.constants.BtwCode.geen,
+    0.21: ebh.constants.BtwCode.hoog_verkoop_21,
+    0.09: ebh.constants.BtwCode.laag_verkoop_9,
 }
 
 
@@ -27,6 +27,9 @@ def process_facturen(
 ):
     """Process facturen from Excel file to e-Boekhouden format."""
     facturen_raw = pd.read_excel(uploaded_file, header=3)
+    facturen_raw.loc[:, "Declaratienummer"] = facturen_raw.Declaratienummer.apply(
+        lambda x: str(int(x)) if not math.isnan(x) else None,  # type: ignore
+    )
     facturen_raw = facturen_raw.where(pd.notnull(facturen_raw), None)
 
     facturen = []
@@ -46,7 +49,7 @@ def process_facturen(
             )
 
             relatie.append(regel.Debiteurennummer)
-            if not math.isnan(regel.Declaratienummer):
+            if regel.Declaratienummer:
                 declaratienummer.append(regel.Declaratienummer)
 
             factuurdatum.append(regel.Factuurdatum)
@@ -63,35 +66,37 @@ def process_facturen(
             if regel["Naam"]:
                 naam.append(regel["Naam"])
 
-        if len(set(relatie)) > 1:
+        if len(set(relatie)) > 1:  # pragma: no cover
             raise ValueError("Meerdere relaties, dat zou niet mogen...")
         relatie = f"{prefix_relatie}{relatie[0]}"
 
+        print(f" ---> declaratienummer: {declaratienummer}")
+
         if declaratienummer:
-            if len(set(declaratienummer)) > 1:
+            if len(set(declaratienummer)) > 1:  # pragma: no cover
                 raise ValueError("Meerdere declaratienummers, dat zou niet mogen...")
             declaratienummer = str(int(declaratienummer[0]))
         else:
             declaratienummer = None
 
-        if len(set(factuurdatum)) > 1:
+        if len(set(factuurdatum)) > 1:  # pragma: no cover
             raise ValueError("Meerdere factuurdata op 1 factuur, dat zou niet mogen...")
         factuurdatum = flip_date(factuurdatum[0])
 
         if consultdatum:
-            if len(set(consultdatum)) > 1:
+            if len(set(consultdatum)) > 1:  # pragma: no cover
                 raise ValueError("Meerdere consultdata op 1 factuur, dat zou niet mogen...")
             consultdatum = flip_date(consultdatum[0])
         else:
             consultdatum = None
 
-        if len(set(betalingsconditie)) > 1:
+        if len(set(betalingsconditie)) > 1:  # pragma: no cover
             raise ValueError(
                 "Meerdere betalingscondities op 1 factuur, dat zou ik niet verwachten..."
             )
         betalingsconditie = betalingsconditie[0]
 
-        if len(set(naam)) > 1:
+        if len(set(naam)) > 1:  # pragma: no cover
             raise ValueError("Meerdere namen op 1 factuur, dat zou ik niet verwachten...")
         naam = naam[0]
 

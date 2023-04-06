@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "voorvoet-app"
-version = "0.1.0"
+version = "0.2.0"
 description = "Frontend app to import data from Voorvoet.nl to E-boekhouden.nl."
 authors = ["Dennis Bakhuis <git@bakhuis.nu>"]
 readme = "README.md"
@@ -11,7 +11,7 @@ packages = [{include = "voorvoet_app"}]
 python = "^3.10"
 pandas = "^1.5.3"
 openpyxl = "^3.1.2"
-eboekhouden-python = "^0.1.5"
+eboekhouden-python = "0.2.0"
 streamlit = "^1.20.0"
 tomli = "^2.0.1"
 htbuilder = "^0.6.1"

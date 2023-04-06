@@ -30,10 +30,11 @@ st.markdown(
 
 uploaded_facturen_file = st.file_uploader(
     "Importeer het James EPD Excel facturen bestand",
-    type={"xlsx"},
+    type=["xlsx"],
 )
 if uploaded_facturen_file is not None:
     file_ok, has_new_facturen = False, False
+    facturen_raw = None
     try:
         facturen_raw = process_facturen(uploaded_facturen_file)
         file_ok = True
@@ -49,11 +50,12 @@ if uploaded_facturen_file is not None:
         )
 
     if file_ok:
+        n_facturen = len(facturen_raw)  # type: ignore
         st.markdown(
             f"""
             ### Het James EPD Excel bestand is successvol ingelezen.
 
-            Dit bestand heeft in totaal {len(facturen_raw)} facturen. Nu gaan we kijken of
+            Dit bestand heeft in totaal {n_facturen} facturen. Nu gaan we kijken of
             er nieuwe facturen bij zijn.
         """
         )
@@ -74,14 +76,14 @@ if uploaded_facturen_file is not None:
             Klik op de `upload` knop om deze nieuwe facturen naar E-boekhouden te importeren.
         """
         )
-        st.write(facturen_overview(new_facturen))
+        st.write(facturen_overview(new_facturen))  # type: ignore
         if st.button("Upload"):
             latest_iteration = st.empty()
             bar = st.progress(0)
 
             client = ebh.EboekhoudenClient()
-            n_facturen = len(new_facturen)
-            for ix, factuur in enumerate(new_facturen):
+            n_facturen = len(new_facturen)  # type: ignore
+            for ix, factuur in enumerate(new_facturen):  # type: ignore
                 client.add_mutatie(mutatie=factuur)
                 latest_iteration.text(f"Added {factuur.factuur_nummer}")
                 bar.progress((ix + 1) / n_facturen)
