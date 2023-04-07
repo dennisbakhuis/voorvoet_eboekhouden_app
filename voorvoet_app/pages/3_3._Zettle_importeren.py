@@ -105,7 +105,7 @@ if uploaded_zettle_file is not None:
             client = ebh.EboekhoudenClient()
             n_facturen = len(new_mutaties)  # type: ignore
             for ix, factuur in enumerate(new_mutaties):  # type: ignore
-                # client.add_mutatie(mutatie=factuur)
+                client.add_mutatie(mutatie=factuur)
                 latest_iteration.text(f"Added {factuur.factuur_nummer}")
                 bar.progress((ix + 1) / n_facturen)
                 time.sleep(0.2)

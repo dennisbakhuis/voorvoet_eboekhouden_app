@@ -1,5 +1,5 @@
 """Page to track software versions."""
-import sys
+import platform
 import streamlit as st
 import tomli
 import eboekhouden_python as ebh
@@ -19,7 +19,7 @@ st.markdown(
     f"""
     ### Software versies
     - VoorVoet importeertool: {__version__}
-    - Python: {sys.version}
+    - Python: {platform.python_version()}
     - Streamlit: {st.__version__}
     - Tomli: {tomli.__version__}
     - Eboekhouden-python: {ebh.__version__}

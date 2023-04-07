@@ -5,17 +5,17 @@ from htbuilder.units import percent, px
 from htbuilder.funcs import rgba, rgb
 
 
-def image(src_as_string, **style):
+def image(src_as_string, **style):  # pragma: no cover
     """Create an image element with a given source and style."""
     return img(src=src_as_string, style=styles(**style))
 
 
-def link(link, text, **style):
+def link(link, text, **style):  # pragma: no cover
     """Create a link element with a given link and text."""
     return a(_href=link, _target="_blank", style=styles(**style))(text)
 
 
-def layout(*args):
+def layout(*args):  # pragma: no cover
     """Create a footer layout with a given list of arguments."""
     style = """
     <style>
@@ -61,14 +61,10 @@ def layout(*args):
     st.markdown(str(foot), unsafe_allow_html=True)
 
 
-def footer():
+def footer():  # pragma: no cover
     """Create a footer layout with a given list of arguments."""
     myargs = [
         "Made with ❤️ by ",
         link("https://linkedin.com/in/dennisbakhuis", "Dennis Bakhuis."),
     ]
     layout(*myargs)
-
-
-if __name__ == "__main__":
-    footer()

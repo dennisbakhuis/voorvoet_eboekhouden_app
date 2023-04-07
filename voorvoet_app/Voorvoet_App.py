@@ -1,6 +1,6 @@
 """Start page of the streamit app."""
 import streamlit as st
-from footer import footer
+from voorvoet_app.footer import footer
 
 st.set_page_config(
     page_title="VoorVoet importeertool",
