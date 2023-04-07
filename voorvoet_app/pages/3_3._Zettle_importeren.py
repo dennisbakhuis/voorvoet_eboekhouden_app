@@ -114,6 +114,16 @@ if uploaded_zettle_file is not None:
                 """
                 ### Alle nieuwe transacties zijn geimporteerd 🎉
                 Ze zijn nu direct zichtbaar in E-boekhouden.nl.
+
+                Alle pinbetalingen zijn geimporteerd als `geld ontvangen` mutaties op rekening 8140. Deze
+                hadden eigenlijk `factuurbetaling ontvangen` moeten zijn. Omdat de tool niet automatisch
+                de betaling kan koppelen aan de juiste factuur, is dit niet gebeurd. Je moet dit nog handmatig
+                doen. In E-boekhouden.nl ga naar `boekhouden`, `overzichten` en dan naar `winst/verliest` en
+                zoek naar de Zettle tijdelijk rekening  `8140`. Hier staan alle pinbetalingen. Klik op elke
+                pinbetaling en koppel deze aan de juiste factuur. Aan het eind van dit process hoort deze
+                tijdelijke rekening leeg te zijn.
+
+                Succes! Hopelijk kunnen we dit in toekomst toch automatiseren.
             """
             )
 
