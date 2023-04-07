@@ -16,4 +16,8 @@ docker: ## Build docker image
 	docker tag voorvoet_eboekhouden_app dennisbakhuis/voorvoet_eboekhouden_app
 	docker push dennisbakhuis/voorvoet_eboekhouden_app
 
+docker-local: ## Build docker image only locally
+	poetry export --without-hashes --format=requirements.txt > requirements.txt
+	docker build --platform=linux/amd64 -t voorvoet_eboekhouden_app .
+
 .PHONY: help init test

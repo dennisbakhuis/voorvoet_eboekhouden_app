@@ -7,7 +7,8 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # copy files
 COPY ./voorvoet_app /voorvoet_app
+ENV PYTHONPATH "${PYTHONPATH}:/"
 
-WORKDIR /
+WORKDIR /voorvoet_app
 EXPOSE 80
-CMD ["streamlit", "run", "voorvoet_app/Voorvoet_App.py", "--server.port", "80"]
+CMD ["streamlit", "run", "Voorvoet_App.py", "--server.port", "80"]
