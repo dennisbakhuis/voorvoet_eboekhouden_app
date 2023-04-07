@@ -7,9 +7,8 @@ def zettle_dataframe_to_mutatie(
     mutaties_raw: pd.DataFrame,
     zettle_rekening: str = "1020",
     zettle_kosten: str = "4560",
-    zettle_kruispost: str = "2010",
+    kruispost_rekening: str = "2000",
     zettle_tijdelijk: str = "8140",
-    bank_rekening: str = "1010",
 ):
     """Verwerk de Zettle export naar een lijst van mutaties."""
     mutaties = []
@@ -70,9 +69,8 @@ def zettle_dataframe_to_mutatie(
             # - tegenrekening 2010 (kruispost zettle)
 
             # Mutatie 2:
-            # - geld ontvangen
-            # - rekening 1010 (bank)
-            # - tegenrekening 2010 (kruispost zettle)
+            # komt binnen via bank, hoeft niet hier geboekt te worden.
+            # Als deze binnenkomt moet deze met tegenrekening 2000 te worden geboekt.
             omschrijving = f"Uitbetaling Zettle tot {row['Datum afhandeling']} / Saldo na overboeking: {row['Saldo']}"
             datum = row["Datum afhandeling"].strftime("%Y-%m-%d")
             mutatie = ebh.models.Mutatie.geld_uitgegeven(
@@ -83,20 +81,7 @@ def zettle_dataframe_to_mutatie(
                     ebh.models.MutatieRegel.from_bedrag(
                         bedrag_invoer=abs(row["Bedrag"]),
                         btw_code=ebh.constants.BtwCode.geen,
-                        tegenrekening_code=zettle_kruispost,
-                    ),
-                ],
-            )
-            mutaties.append(mutatie)
-            mutatie = ebh.models.Mutatie.geld_ontvangen(
-                datum=datum,
-                rekening=bank_rekening,
-                omschrijving=f"{omschrijving} (2/2)",
-                mutatie_regels=[
-                    ebh.models.MutatieRegel.from_bedrag(
-                        bedrag_invoer=abs(row["Bedrag"]),
-                        btw_code=ebh.constants.BtwCode.geen,
-                        tegenrekening_code=zettle_kruispost,
+                        tegenrekening_code=kruispost_rekening,
                     ),
                 ],
             )

@@ -48,10 +48,8 @@ st.markdown(
     de naam, bijvoorbeeld `2023-03-01 - 2023-04-01 - Mutaties.xlsx`. Nu weet je dat dit bestand alle
     mutaties van die periode bevat.
     2. In de VoorVoet importeertool ga naar `3. Zettle importeren` en upload het Excel bestand met
-    mutaties. Als het bestand goed is geïmporteerd, krijg je het aantal transacties te zien die in
-    het bestand staan. Vervolgens wordt vanuit de transacties een lijst met mutaties gemaakt. Dit
-    kunnen er meer zijn omdat de transactie 'geld storten op bankrekening' overeen komt met twee
-    mutaties in E-boekhouden.nl. Nu wordt er automatisch een overzicht gemaakt van alle mutaties
+    mutaties. Als het bestand goed is geïmporteerd, krijg je het aantal mutaties te zien die in
+    het bestand staan. Nu wordt er automatisch een overzicht gemaakt van alle mutaties
     die al in E-boekhouden.nl staan en een overzicht van nog toe te voegen mutaties. Kijk even goed
     of dit klopt. Als je akkoord bent, klik dan op de knop `Upload nieuwe mutaties`. Je hebt nu alle
     nieuwe mutaties in E-boekhouden.nl staan.

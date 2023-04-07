@@ -10,7 +10,7 @@ sys.path.append(str(Path(__file__).resolve().parent))
 from zettle import (
     zettle_import_from_excel,
     zettle_dataframe_to_mutatie,
-    zettle_select_new_transactions,
+    zettle_select_new_mutaties,
     zettle_mutatie_overview,
 )
 
@@ -57,20 +57,18 @@ if uploaded_zettle_file is not None:
 
     if file_ok:
         n_mutaties_df = len(zettle_raw_df)  # type: ignore
-        n_mutaties = len(zettle_raw)  # type: ignore
         st.markdown(
             f"""
             ### Het Zettle stortingen Excel bestand is successvol ingelezen.
 
-            Dit bestand heeft in totaal {n_mutaties_df} transacties. Dit worden in totaal
-            {n_mutaties} mutaties in E-boekhouden. Nu gaan we kijken of
-            er transacties bij zitten die al in E-boekhouden.nl staan.
+            Dit bestand heeft in totaal {n_mutaties_df} mutaties. Nu gaan we kijken of
+            er mutatie bij zitten die al in E-boekhouden.nl staan.
         """
         )
 
-        new_mutaties, existing_mutaties = zettle_select_new_transactions(zettle_raw)  # type: ignore
+        new_mutaties, existing_mutaties = zettle_select_new_mutaties(zettle_raw)  # type: ignore
         if not new_mutaties:
-            st.markdown("**Er zijn geen nieuwe transacties gevonden.**")
+            st.markdown("**Er zijn geen nieuwe mutaties gevonden.**")
         else:
             st.markdown(
                 f"**Er zijn in totaal {len(new_mutaties)} mutaties die nog niet in E-boekhouden.nl staan.**"
@@ -112,7 +110,7 @@ if uploaded_zettle_file is not None:
 
             st.markdown(
                 """
-                ### Alle nieuwe transacties zijn geimporteerd 🎉
+                ### Alle nieuwe mutaties zijn geimporteerd 🎉
                 Ze zijn nu direct zichtbaar in E-boekhouden.nl.
 
                 Alle pinbetalingen zijn geimporteerd als `geld ontvangen` mutaties op rekening 8140. Deze

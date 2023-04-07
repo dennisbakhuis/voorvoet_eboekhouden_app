@@ -7,7 +7,7 @@ from .mock_client import MockClient
 from voorvoet_app.pages.zettle import (
     zettle_import_from_excel,
     zettle_dataframe_to_mutatie,
-    zettle_select_new_transactions,
+    zettle_select_new_mutaties,
     zettle_mutatie_overview,
 )
 
@@ -116,9 +116,8 @@ def test_zettle_zettle_dataframe_to_mutatie():
     assert isinstance(result, list)
     assert isinstance(result[0], ebh.models.Mutatie)
     assert result[0].datum == "2023-03-02"
-    assert len(result) == 2
+    assert len(result) == 1
     assert result[0].soort == ebh.constants.MutatieSoort.geld_uitgegeven
-    assert result[1].soort == ebh.constants.MutatieSoort.geld_ontvangen
 
     # terugbetaling
     df = pd.DataFrame(
@@ -225,7 +224,7 @@ def test_zettle_zettle_select_new_transactions(monkeypatch):
         DummyMutation("test2"),
     ]
 
-    to_be_added, existing = zettle_select_new_transactions(fake_data)  # type: ignore
+    to_be_added, existing = zettle_select_new_mutaties(fake_data)  # type: ignore
 
     assert isinstance(to_be_added, list)
     assert len(to_be_added) == 1

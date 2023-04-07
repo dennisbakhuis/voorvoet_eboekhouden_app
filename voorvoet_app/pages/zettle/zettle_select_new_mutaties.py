@@ -3,7 +3,7 @@ from typing import List, Tuple
 import eboekhouden_python as ebh
 
 
-def zettle_select_new_transactions(
+def zettle_select_new_mutaties(
     zettle_raw: List[ebh.models.Mutatie],
 ) -> Tuple[List[ebh.models.Mutatie], List[ebh.models.Mutatie]]:
     """Select new Zettle transactions from DataFrame."""
