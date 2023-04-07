@@ -30,8 +30,11 @@ def process_facturen(
     facturen_raw.loc[:, "Declaratienummer"] = facturen_raw.Declaratienummer.apply(
         lambda x: str(int(x)) if not math.isnan(x) else None,  # type: ignore
     )
-    facturen_raw = facturen_raw.where(pd.notnull(facturen_raw), None)
-
+    facturen_raw.loc[:, "Consult datum"] = (
+        facturen_raw["Consult datum"]
+        .astype(object)
+        .where(facturen_raw["Consult datum"].notnull(), None)
+    )
     facturen = []
     for factuur_nummer_original, factuurregels_raw in facturen_raw.groupby("Factuurnummer"):
         factuur_nummer = f"{prefix_factuur}{factuur_nummer_original}"
