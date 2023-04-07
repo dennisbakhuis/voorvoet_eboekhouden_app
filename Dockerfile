@@ -7,7 +7,6 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # copy files
 COPY ./voorvoet_app /voorvoet_app
-ENV PYTHONPATH "${PYTHONPATH}:/"
 
 WORKDIR /voorvoet_app
 EXPOSE 80
