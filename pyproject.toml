@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "voorvoet-app"
-version = "0.2.3"
+version = "0.2.4"
 description = "Frontend app to import data from Voorvoet.nl to E-boekhouden.nl."
 authors = ["Dennis Bakhuis <git@bakhuis.nu>"]
 readme = "README.md"

@@ -66,7 +66,7 @@ if uploaded_relatie_file is not None:
         )
 
         new_relaties = select_new_relaties(relaties_raw)
-        if not new_relaties.empty:
+        if new_relaties.empty:
             st.markdown("**Er zijn geen nieuwe relaties gevonden.**")
         else:
             st.markdown(f"**Er zijn {len(new_relaties)} nieuwe relaties gevonden.**")
