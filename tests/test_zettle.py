@@ -2,6 +2,7 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile, UploadedFileRe
 import pandas as pd
 import pytest
 import eboekhouden_python as ebh
+from streamlit.proto.Common_pb2 import FileURLs
 
 from .mock_client import MockClient
 from voorvoet_app.pages.zettle import (
@@ -31,11 +32,12 @@ def test_zettle_zettle_import_from_excel(monkeypatch):
     monkeypatch.setattr("pandas.read_excel", mock_read_excel)
     uploaded_file = UploadedFile(
         record=UploadedFileRec(
-            id=0,
+            file_id="test",
             name="relaties.xlsx",
             type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             data=b"hellow",
-        )
+        ),
+        file_urls=FileURLs(),
     )
 
     result = zettle_import_from_excel(uploaded_file)

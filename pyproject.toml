@@ -29,3 +29,5 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 pythonpath = [".", "./voorvoet_app"]
+addopts = ["--import-mode=importlib"]
+filterwarnings = ["ignore::DeprecationWarning"]

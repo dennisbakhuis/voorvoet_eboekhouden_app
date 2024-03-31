@@ -1,4 +1,5 @@
 from streamlit.runtime.uploaded_file_manager import UploadedFile, UploadedFileRec
+from streamlit.proto.Common_pb2 import FileURLs
 import pandas as pd
 import eboekhouden_python as ebh
 
@@ -37,11 +38,12 @@ def test_relaties_process_relaties(monkeypatch):
     monkeypatch.setattr("pandas.read_excel", mock_read_excel)
     uploaded_file = UploadedFile(
         record=UploadedFileRec(
-            id=0,
+            file_id="test",
             name="relaties.xlsx",
             type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             data=b"hellow",
-        )
+        ),
+        file_urls=FileURLs(),
     )
 
     result = process_relaties(uploaded_file)
