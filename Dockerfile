@@ -1,4 +1,4 @@
-FROM python:3.11.2-slim
+FROM python:3.13-slim
 LABEL author="Dennis Bakhuis"
 
 # copy files and install requirements
