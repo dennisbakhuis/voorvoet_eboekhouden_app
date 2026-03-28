@@ -26,7 +26,7 @@ st.markdown(
 
 uploaded_relatie_file = st.file_uploader(
     "Importeer het James EPD Excel relatie bestand",
-    type={"xlsx"},
+    type=["xlsx"],
 )
 if uploaded_relatie_file is not None:
     file_ok, has_new_relaties = False, False

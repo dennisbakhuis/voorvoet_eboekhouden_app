@@ -57,5 +57,5 @@ def process_relaties(
             ],
         ]
     )
-    relaties_raw = relaties_raw.where(pd.notnull(relaties_raw), None)
+    relaties_raw = relaties_raw.where(pd.notnull(relaties_raw), None)  # type: ignore[arg-type]
     return relaties_raw

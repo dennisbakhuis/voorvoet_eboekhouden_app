@@ -33,7 +33,7 @@ def process_facturen(
     facturen_raw.loc[:, "Consult datum"] = (
         facturen_raw["Consult datum"]
         .astype(object)
-        .where(facturen_raw["Consult datum"].notnull(), None)
+        .where(facturen_raw["Consult datum"].notnull(), None)  # type: ignore[arg-type]
     )
     facturen = []
     for factuur_nummer_original, factuurregels_raw in facturen_raw.groupby("Factuurnummer"):

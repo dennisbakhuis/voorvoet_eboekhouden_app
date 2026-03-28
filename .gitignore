@@ -160,3 +160,9 @@ cython_debug/
 #.idea/
 
 notebooks/
+
+# Claude
+.claude/
+CLAUDE.md
+.vscode/
+local/

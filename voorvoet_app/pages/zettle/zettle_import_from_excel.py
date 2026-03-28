@@ -12,6 +12,6 @@ def zettle_import_from_excel(uploaded_file: Union[UploadedFile, str, Path]) -> p
     mutaties_raw = mutaties_raw.sort_values(by=["Datum afhandeling", "Datum betaling"]).reset_index(
         drop=True
     )
-    mutaties_raw = mutaties_raw.where(pd.notnull(mutaties_raw), None)
+    mutaties_raw = mutaties_raw.where(pd.notnull(mutaties_raw), None)  # type: ignore[arg-type]
 
     return mutaties_raw
