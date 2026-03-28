@@ -135,6 +135,6 @@ def zettle_dataframe_to_mutatie(
             mutaties.append(mutatie)
 
         else:
-            raise ValueError(f"Unknown type in Zettle import: {row['Type']}")
+            raise ValueError(f"Onbekend transactietype in Zettle import: '{row['Type']}'. Verwachte types: Kaartbetaling, Toeslag, Storting op bankrekening, Terugbetaling kaartbetaling, Toeslag Terugbetaling.")
 
     return mutaties

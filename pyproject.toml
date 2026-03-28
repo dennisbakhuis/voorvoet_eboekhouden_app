@@ -1,6 +1,6 @@
 [project]
 name = "voorvoet-app"
-version = "0.3.0"
+version = "0.3.1"
 description = "Frontend app to import data from Voorvoet.nl to E-boekhouden.nl."
 authors = [{ name = "Dennis Bakhuis", email = "git@bakhuis.nu" }]
 readme = "README.md"

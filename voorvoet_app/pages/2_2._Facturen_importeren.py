@@ -38,14 +38,23 @@ if uploaded_facturen_file is not None:
     try:
         facturen_raw = process_facturen(uploaded_facturen_file)
         file_ok = True
-    except Exception as e:
+    except ValueError as e:
         st.markdown(
             f"""
             ### Er is iets mis gegaan met het importeren van het Excel bestand.
 
-            Is het bestand wel een Excel bestand? Is het bestand wel een export van het James EPD?
+            {e}
+        """
+        )
+    except Exception as e:
+        st.markdown(
+            f"""
+            ### Er is een onverwachte fout opgetreden in de software.
 
-            Dit is de foutmelding: {e}
+            Het bestand lijkt correct maar de software kan het niet verwerken.
+            Neem contact op met Dennis en stuur het Excel bestand mee.
+
+            Technische foutmelding: {type(e).__name__}: {e}
         """
         )
 

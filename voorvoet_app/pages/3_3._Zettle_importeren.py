@@ -44,14 +44,23 @@ if uploaded_zettle_file is not None:
         zettle_raw_df = zettle_import_from_excel(uploaded_zettle_file)
         zettle_raw = zettle_dataframe_to_mutatie(zettle_raw_df)
         file_ok = True
-    except Exception as e:
+    except ValueError as e:
         st.markdown(
             f"""
             ### Er is iets mis gegaan met het importeren van het Excel bestand.
 
-            Is het bestand wel een Excel bestand? Is het bestand wel een export van Zettle?
+            {e}
+        """
+        )
+    except Exception as e:
+        st.markdown(
+            f"""
+            ### Er is een onverwachte fout opgetreden in de software.
 
-            Dit is de foutmelding: {e}
+            Het bestand lijkt correct maar de software kan het niet verwerken.
+            Neem contact op met Dennis en stuur het Excel bestand mee.
+
+            Technische foutmelding: {type(e).__name__}: {e}
         """
         )
 
