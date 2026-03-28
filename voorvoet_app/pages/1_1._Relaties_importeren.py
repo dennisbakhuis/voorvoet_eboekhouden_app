@@ -26,7 +26,7 @@ st.markdown(
 
 uploaded_relatie_file = st.file_uploader(
     "Importeer het James EPD Excel relatie bestand",
-    type={"xlsx"},
+    type=["xlsx"],
 )
 if uploaded_relatie_file is not None:
     file_ok, has_new_relaties = False, False
@@ -44,14 +44,23 @@ if uploaded_relatie_file is not None:
             file_ok = True
         else:
             raise Exception("De kolommen van het Excel bestand kloppen niet.")
-    except Exception as e:
+    except ValueError as e:
         st.markdown(
             f"""
             ### Er is iets mis gegaan met het importeren van het Excel bestand.
 
-            Is het bestand wel een Excel bestand? Is het bestand wel een export van het James EPD?
+            {e}
+        """
+        )
+    except Exception as e:
+        st.markdown(
+            f"""
+            ### Er is een onverwachte fout opgetreden in de software.
 
-            Dit is de foutmelding: {e}
+            Het bestand lijkt correct maar de software kan het niet verwerken.
+            Neem contact op met Dennis en stuur het Excel bestand mee.
+
+            Technische foutmelding: {type(e).__name__}: {e}
         """
         )
 

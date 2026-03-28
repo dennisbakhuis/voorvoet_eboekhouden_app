@@ -179,7 +179,7 @@ def test_zettle_zettle_dataframe_to_mutatie():
         ]
     )
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Onbekend transactietype"):
         result = zettle_dataframe_to_mutatie(df)
 
 

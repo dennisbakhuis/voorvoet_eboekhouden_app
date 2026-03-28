@@ -1,31 +1,31 @@
-[tool.poetry]
+[project]
 name = "voorvoet-app"
-version = "0.3.0"
+version = "0.3.1"
 description = "Frontend app to import data from Voorvoet.nl to E-boekhouden.nl."
-authors = ["Dennis Bakhuis <git@bakhuis.nu>"]
+authors = [{ name = "Dennis Bakhuis", email = "git@bakhuis.nu" }]
 readme = "README.md"
-packages = [{ include = "voorvoet_app" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "pandas>=2.2.3",
+    "openpyxl>=3.1.5",
+    "eboekhouden-python>=0.3.0",
+    "streamlit>=1.41.1",
+    "tomli>=2.2.1",
+    "htbuilder>=0.9.0",
+]
 
-
-[tool.poetry.dependencies]
-python = ">=3.10,<3.14"
-pandas = "^2.2.3"
-openpyxl = "^3.1.5"
-eboekhouden-python = "^0.3.0"
-streamlit = "^1.41.1"
-tomli = "^2.2.1"
-htbuilder = "^0.9.0"
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^4.0.1"
-pytest-cov = "^6.0.0"
-pytest = "^8.3.4"
-coverage = "^7.6.10"
-ipykernel = "^6.29.5"
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0.1",
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
+    "coverage>=7.6.10",
+    "ipykernel>=6.29.5",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
 pythonpath = [".", "./voorvoet_app"]

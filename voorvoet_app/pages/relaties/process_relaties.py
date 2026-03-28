@@ -1,14 +1,28 @@
 """Process relaties excel file to dataframe."""
+from typing import BinaryIO, Union
 import pandas as pd
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 
 
 def process_relaties(
-    uploaded_file: UploadedFile,
+    uploaded_file: Union[UploadedFile, BinaryIO],
     prefix_relatie: str = "JR-",
 ) -> pd.DataFrame:
     """Process relaties excel file to dataframe."""
-    relaties_raw = pd.read_excel(uploaded_file, header=4, usecols=lambda x: "Unnamed" not in x)
+    relaties_raw = pd.read_excel(uploaded_file, header=4, usecols=lambda x: isinstance(x, str) and "Unnamed" not in x)
+
+    verwachte_kolommen = {
+        "Debiteurennummer", "Accountnaam", "Geslacht", "Volledige naam",
+        "Straat", "Huisnummer inclusief toevoeging", "Postcode", "Woonplaats", "Land",
+    }
+    ontbrekend = verwachte_kolommen - set(relaties_raw.columns)
+    if ontbrekend:
+        raise ValueError(
+            f"Dit is geen geldig James EPD relaties bestand. "
+            f"De volgende kolommen ontbreken: {', '.join(sorted(ontbrekend))}. "
+            f"Controleer of je het juiste bestand hebt geüpload op de juiste pagina."
+        )
+
     relaties_raw = relaties_raw.loc[relaties_raw["Debiteurennummer"] > 0]
     relaties_raw = (
         relaties_raw.assign(
@@ -57,5 +71,5 @@ def process_relaties(
             ],
         ]
     )
-    relaties_raw = relaties_raw.where(pd.notnull(relaties_raw), None)
+    relaties_raw = relaties_raw.where(pd.notnull(relaties_raw), None)  # type: ignore[arg-type]
     return relaties_raw
