@@ -11,7 +11,7 @@ from footer import footer
 
 with open("../pyproject.toml", "rb") as f:
     pyproject = tomli.load(f)
-    __version__ = pyproject["tool"]["poetry"]["version"]
+    __version__ = pyproject["project"]["version"]
 
 st.write("# VoorVoet importeertool 🚀")
 
