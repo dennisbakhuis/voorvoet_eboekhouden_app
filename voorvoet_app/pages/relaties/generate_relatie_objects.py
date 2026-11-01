@@ -1,11 +1,10 @@
 """Generate relatie objects."""
-from typing import List
 
 import eboekhouden_python as ebh
 import pandas as pd
 
 
-def generate_relatie_objects(to_be_added: pd.DataFrame) -> List[ebh.models.Relatie]:
+def generate_relatie_objects(to_be_added: pd.DataFrame) -> list[ebh.models.Relatie]:
     """Generate relatie objects."""
     relaties = []
     for _, row in to_be_added.iterrows():

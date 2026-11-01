@@ -1,21 +1,20 @@
 """3. Zettle importeren page of the streamlit app."""
+
 import sys
 import time
 from pathlib import Path
 
-import streamlit as st
 import eboekhouden_python as ebh
+import streamlit as st
 
 sys.path.append(str(Path(__file__).resolve().parent))
-from zettle import (
-    zettle_import_from_excel,
-    zettle_dataframe_to_mutatie,
-    zettle_select_new_mutaties,
-    zettle_mutatie_overview,
-)
-
 from footer import footer
-
+from zettle import (
+    zettle_dataframe_to_mutatie,
+    zettle_import_from_excel,
+    zettle_mutatie_overview,
+    zettle_select_new_mutaties,
+)
 
 st.markdown(
     """

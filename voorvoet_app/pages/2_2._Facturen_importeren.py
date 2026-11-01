@@ -1,15 +1,15 @@
 """2. Facturen importeren page of the streamlit app."""
+
 import sys
 import time
 from pathlib import Path
 
-import streamlit as st
 import eboekhouden_python as ebh
+import streamlit as st
 
 sys.path.append(str(Path(__file__).resolve().parent))
-from facturen import process_facturen, select_new_facturen, facturen_overview
+from facturen import facturen_overview, process_facturen, select_new_facturen
 from footer import footer
-
 
 st.markdown(
     """

@@ -1,16 +1,17 @@
-from streamlit.runtime.uploaded_file_manager import UploadedFile, UploadedFileRec
+import eboekhouden_python as ebh
 import pandas as pd
 import pytest
-import eboekhouden_python as ebh
 from streamlit.proto.Common_pb2 import FileURLs
+from streamlit.runtime.uploaded_file_manager import UploadedFile, UploadedFileRec
+
+from voorvoet_app.pages.zettle import (
+    zettle_dataframe_to_mutatie,
+    zettle_import_from_excel,
+    zettle_mutatie_overview,
+    zettle_select_new_mutaties,
+)
 
 from .mock_client import MockClient
-from voorvoet_app.pages.zettle import (
-    zettle_import_from_excel,
-    zettle_dataframe_to_mutatie,
-    zettle_select_new_mutaties,
-    zettle_mutatie_overview,
-)
 
 
 def mock_read_excel(*args, **kwargs):

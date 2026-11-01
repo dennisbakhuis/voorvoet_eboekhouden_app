@@ -1,29 +1,31 @@
 import io
 import math
 
+import eboekhouden_python as ebh
 import pandas as pd
 import pytest
-from streamlit.runtime.uploaded_file_manager import UploadedFile, UploadedFileRec
 from streamlit.proto.Common_pb2 import FileURLs
+from streamlit.runtime.uploaded_file_manager import UploadedFile, UploadedFileRec
 
-import eboekhouden_python as ebh
-
-from .mock_client import MockClient
 from voorvoet_app.pages.facturen import (
+    facturen_overview,
     process_facturen,
     select_new_facturen,
-    facturen_overview,
 )
+
+from .mock_client import MockClient
 
 
 def create_facturen_excel(rows):
     """Create a minimal James EPD-style facturen Excel file in memory."""
     buf = io.BytesIO()
-    header_rows = pd.DataFrame([
-        ["Facturen en declaraties"] + [""] * 13,
-        ["Praktijk:", "Test Praktijk"] + [""] * 12,
-        ["Datum:", "01-01-2025"] + [""] * 12,
-    ])
+    header_rows = pd.DataFrame(
+        [
+            ["Facturen en declaraties"] + [""] * 13,
+            ["Praktijk:", "Test Praktijk"] + [""] * 12,
+            ["Datum:", "01-01-2025"] + [""] * 12,
+        ]
+    )
     data = pd.DataFrame(rows)
     with pd.ExcelWriter(buf, engine="openpyxl") as writer:
         header_rows.to_excel(writer, index=False, header=False, startrow=0)
@@ -188,19 +190,23 @@ def test_process_facturen_wrong_file():
         "E-mail": "test@example.com",
     }
     buf = io.BytesIO()
-    header_rows = pd.DataFrame([
-        ["Debiteuren"] + [""] * 13,
-        ["Praktijk:", "Test"] + [""] * 12,
-        ["Datum:", "01-01-2025"] + [""] * 12,
-        [""] * 14,
-    ])
+    header_rows = pd.DataFrame(
+        [
+            ["Debiteuren"] + [""] * 13,
+            ["Praktijk:", "Test"] + [""] * 12,
+            ["Datum:", "01-01-2025"] + [""] * 12,
+            [""] * 14,
+        ]
+    )
     data = pd.DataFrame([relatie_row])
     with pd.ExcelWriter(buf, engine="openpyxl") as writer:
         header_rows.to_excel(writer, index=False, header=False, startrow=0)
         data.to_excel(writer, index=False, startrow=4)
     buf.seek(0)
 
-    with pytest.raises(ValueError, match="Dit is geen geldig James EPD facturen bestand"):
+    with pytest.raises(
+        ValueError, match="Dit is geen geldig James EPD facturen bestand"
+    ):
         process_facturen(buf)
 
 
@@ -214,3 +220,24 @@ def test_process_facturen_with_timestamp_dates():
     result = process_facturen(excel_file)
 
     assert result[0].datum == "2025-01-01"
+
+
+def test_process_facturen_with_mixed_empty_declaratienummer_and_consultdatum():
+    rows = [
+        {**FACTUUR_ROW, "Factuurnummer": 1, "Declaratienummer": 12345},
+        {
+            **FACTUUR_ROW,
+            "Factuurnummer": 2,
+            "Declaratienummer": float("nan"),
+            "Consult datum": None,
+        },
+    ]
+    excel_file = create_facturen_excel(rows)
+    result = process_facturen(excel_file)
+
+    assert len(result) == 2
+    assert result[0].betalingskenmerk == "12345"
+    assert "Declaratienummer: 12345" in result[0].omschrijving
+    assert result[1].betalingskenmerk is None
+    assert "Declaratienummer" not in result[1].omschrijving
+    assert "Consultdatum" not in result[1].omschrijving

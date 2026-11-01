@@ -1,11 +1,11 @@
 """Facturen overview helper function."""
-from typing import List
-from eboekhouden_python.models import Mutatie
+
 import pandas as pd
+from eboekhouden_python.models import Mutatie
 
 
 def facturen_overview(
-    facturen: List[Mutatie],
+    facturen: list[Mutatie],
 ) -> pd.DataFrame:
     """Return a DataFrame with the facturen overview."""
     rows = []

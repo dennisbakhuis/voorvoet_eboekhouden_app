@@ -1,4 +1,5 @@
 """Verwerk de Zettle export naar een lijst van mutaties."""
+
 import eboekhouden_python as ebh
 import pandas as pd
 
@@ -135,6 +136,8 @@ def zettle_dataframe_to_mutatie(
             mutaties.append(mutatie)
 
         else:
-            raise ValueError(f"Onbekend transactietype in Zettle import: '{row['Type']}'. Verwachte types: Kaartbetaling, Toeslag, Storting op bankrekening, Terugbetaling kaartbetaling, Toeslag Terugbetaling.")
+            raise ValueError(
+                f"Onbekend transactietype in Zettle import: '{row['Type']}'. Verwachte types: Kaartbetaling, Toeslag, Storting op bankrekening, Terugbetaling kaartbetaling, Toeslag Terugbetaling."
+            )
 
     return mutaties

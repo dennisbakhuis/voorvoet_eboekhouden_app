@@ -1,4 +1,5 @@
 """Select new relaties from relaties_raw."""
+
 import eboekhouden_python as ebh
 import pandas as pd
 
@@ -11,6 +12,8 @@ def select_new_relaties(
     existing_relaties = client.get_relaties()
     existing_relatie_codes = [x.relatie_code for x in existing_relaties]
 
-    new_relaties = relaties_raw.loc[~relaties_raw["relatie_code"].isin(existing_relatie_codes)]
+    new_relaties = relaties_raw.loc[
+        ~relaties_raw["relatie_code"].isin(existing_relatie_codes)
+    ]
 
     return new_relaties
