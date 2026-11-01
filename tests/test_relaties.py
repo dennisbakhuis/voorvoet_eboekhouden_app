@@ -1,28 +1,31 @@
 import io
 
-from streamlit.runtime.uploaded_file_manager import UploadedFile, UploadedFileRec
-from streamlit.proto.Common_pb2 import FileURLs
+import eboekhouden_python as ebh
 import pandas as pd
 import pytest
-import eboekhouden_python as ebh
+from streamlit.proto.Common_pb2 import FileURLs
+from streamlit.runtime.uploaded_file_manager import UploadedFile, UploadedFileRec
 
-from .mock_client import MockClient
 from voorvoet_app.pages.relaties import (
+    generate_relatie_objects,
     process_relaties,
     select_new_relaties,
-    generate_relatie_objects,
 )
+
+from .mock_client import MockClient
 
 
 def create_relaties_excel(rows):
     """Create a minimal James EPD-style relaties Excel file in memory."""
     buf = io.BytesIO()
-    header_rows = pd.DataFrame([
-        ["Debiteuren"] + [""] * 13,
-        ["Praktijk:", "Test Praktijk"] + [""] * 12,
-        ["Datum:", "01-01-2025"] + [""] * 12,
-        [""] * 14,
-    ])
+    header_rows = pd.DataFrame(
+        [
+            ["Debiteuren"] + [""] * 13,
+            ["Praktijk:", "Test Praktijk"] + [""] * 12,
+            ["Datum:", "01-01-2025"] + [""] * 12,
+            [""] * 14,
+        ]
+    )
     data = pd.DataFrame(rows)
     with pd.ExcelWriter(buf, engine="openpyxl") as writer:
         header_rows.to_excel(writer, index=False, header=False, startrow=0)
@@ -34,11 +37,13 @@ def create_relaties_excel(rows):
 def create_facturen_excel(rows):
     """Create a minimal James EPD-style facturen Excel file in memory."""
     buf = io.BytesIO()
-    header_rows = pd.DataFrame([
-        ["Facturen en declaraties"] + [""] * 13,
-        ["Praktijk:", "Test Praktijk"] + [""] * 12,
-        ["Datum:", "01-01-2025"] + [""] * 12,
-    ])
+    header_rows = pd.DataFrame(
+        [
+            ["Facturen en declaraties"] + [""] * 13,
+            ["Praktijk:", "Test Praktijk"] + [""] * 12,
+            ["Datum:", "01-01-2025"] + [""] * 12,
+        ]
+    )
     data = pd.DataFrame(rows)
     with pd.ExcelWriter(buf, engine="openpyxl") as writer:
         header_rows.to_excel(writer, index=False, header=False, startrow=0)
@@ -178,5 +183,23 @@ def test_process_relaties_wrong_file_type():
     }
     excel_file = create_facturen_excel([facturen_row])
 
-    with pytest.raises(ValueError, match="Dit is geen geldig James EPD relaties bestand"):
+    with pytest.raises(
+        ValueError, match="Dit is geen geldig James EPD relaties bestand"
+    ):
         process_relaties(excel_file)
+
+
+def test_process_relaties_missing_values_are_none():
+    bedrijf_row = {
+        **RELATIE_ROW,
+        "Debiteurennummer": 2,
+        "Volledige naam": None,
+        "Postcode": None,
+    }
+    excel_file = create_relaties_excel([RELATIE_ROW, bedrijf_row])
+    result = process_relaties(excel_file)
+
+    bedrijf = result.loc[result["relatie_code"] == "JR-2"].iloc[0]
+    assert bedrijf["Vestigingsadres"] is None
+    assert bedrijf["Vestigingsadres postcode"] is None
+    assert bedrijf["Bedrijf/Naam"] == "Test BV"

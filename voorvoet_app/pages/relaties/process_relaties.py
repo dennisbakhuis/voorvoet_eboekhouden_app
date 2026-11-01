@@ -1,19 +1,32 @@
 """Process relaties excel file to dataframe."""
-from typing import BinaryIO, Union
+
+from typing import BinaryIO
+
 import pandas as pd
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 
 
 def process_relaties(
-    uploaded_file: Union[UploadedFile, BinaryIO],
+    uploaded_file: UploadedFile | BinaryIO,
     prefix_relatie: str = "JR-",
 ) -> pd.DataFrame:
     """Process relaties excel file to dataframe."""
-    relaties_raw = pd.read_excel(uploaded_file, header=4, usecols=lambda x: isinstance(x, str) and "Unnamed" not in x)
+    relaties_raw = pd.read_excel(
+        uploaded_file,
+        header=4,
+        usecols=lambda x: isinstance(x, str) and "Unnamed" not in x,
+    )
 
     verwachte_kolommen = {
-        "Debiteurennummer", "Accountnaam", "Geslacht", "Volledige naam",
-        "Straat", "Huisnummer inclusief toevoeging", "Postcode", "Woonplaats", "Land",
+        "Debiteurennummer",
+        "Accountnaam",
+        "Geslacht",
+        "Volledige naam",
+        "Straat",
+        "Huisnummer inclusief toevoeging",
+        "Postcode",
+        "Woonplaats",
+        "Land",
     }
     ontbrekend = verwachte_kolommen - set(relaties_raw.columns)
     if ontbrekend:
@@ -27,9 +40,11 @@ def process_relaties(
     relaties_raw = (
         relaties_raw.assign(
             Naam=relaties_raw.apply(
-                lambda x: f"{x['Volledige naam'].strip()} ({x['Geslacht'][0]})"
-                if isinstance(x["Volledige naam"], str)
-                else x["Accountnaam"],
+                lambda x: (
+                    f"{x['Volledige naam'].strip()} ({x['Geslacht'][0]})"
+                    if isinstance(x["Volledige naam"], str)
+                    else x["Accountnaam"]
+                ),
                 axis=1,
             ),
             Soort=relaties_raw.apply(
@@ -37,9 +52,11 @@ def process_relaties(
                 axis=1,
             ),
             Vestigingsadres=relaties_raw.apply(
-                lambda x: f"{x['Straat'].strip()} {x['Huisnummer inclusief toevoeging']}"
-                if isinstance(x["Volledige naam"], str)
-                else None,  # type: ignore
+                lambda x: (
+                    f"{x['Straat'].strip()} {x['Huisnummer inclusief toevoeging']}"
+                    if isinstance(x["Volledige naam"], str)
+                    else None
+                ),  # type: ignore
                 axis=1,
             ),
             relatie_code=relaties_raw.apply(
@@ -71,5 +88,6 @@ def process_relaties(
             ],
         ]
     )
+    relaties_raw = relaties_raw.astype(object)
     relaties_raw = relaties_raw.where(pd.notnull(relaties_raw), None)  # type: ignore[arg-type]
     return relaties_raw
