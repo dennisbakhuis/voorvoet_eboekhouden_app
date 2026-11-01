@@ -1,8 +1,16 @@
 """Streamlit footer layout. Found on StackOverflow, but forgot the link."""
+
 import streamlit as st
-from htbuilder import HtmlElement, div, ul, li, br, hr, a, p, img, styles, classes, fonts
+from htbuilder import (
+    HtmlElement,
+    a,
+    div,
+    hr,
+    img,
+    p,
+    styles,
+)
 from htbuilder.units import percent, px
-from htbuilder.funcs import rgba, rgb
 
 
 def image(src_as_string, **style):  # pragma: no cover
@@ -52,10 +60,7 @@ def layout(*args):  # pragma: no cover
     st.markdown(style, unsafe_allow_html=True)
 
     for arg in args:
-        if isinstance(arg, str):
-            body(arg)
-
-        elif isinstance(arg, HtmlElement):
+        if isinstance(arg, (str, HtmlElement)):
             body(arg)
 
     st.markdown(str(foot), unsafe_allow_html=True)

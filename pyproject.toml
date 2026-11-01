@@ -21,6 +21,9 @@ dev = [
     "pytest>=9.2.0",
     "coverage>=7.17.0",
     "ipykernel>=7.4.0",
+    "mypy>=2.4.1",
+    "pandas-stubs>=3.1.0.261029",
+    "types-openpyxl>=3.1.5.20261017",
 ]
 
 [build-system]
@@ -32,3 +35,17 @@ pythonpath = [".", "./voorvoet_app"]
 addopts = ["--import-mode=importlib"]
 filterwarnings = ["ignore::DeprecationWarning"]
 
+[tool.ruff.lint.per-file-ignores]
+"voorvoet_app/Voorvoet_App.py" = ["N999"]
+"voorvoet_app/pages/*.py" = ["N999", "BLE001"]
+"tests/test_pages.py" = ["F401"]
+
+[tool.mypy]
+files = ["voorvoet_app"]
+mypy_path = ["voorvoet_app", "voorvoet_app/pages"]
+explicit_package_bases = true
+exclude = ['^voorvoet_app/__init__\.py$', '^voorvoet_app/pages/__init__\.py$']
+
+[[tool.mypy.overrides]]
+module = ["eboekhouden_python.*", "htbuilder.*"]
+ignore_missing_imports = true

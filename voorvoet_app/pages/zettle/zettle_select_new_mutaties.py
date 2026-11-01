@@ -1,11 +1,11 @@
 """Select new Zettle transactions from DataFrame."""
-from typing import List, Tuple
+
 import eboekhouden_python as ebh
 
 
 def zettle_select_new_mutaties(
-    zettle_raw: List[ebh.models.Mutatie],
-) -> Tuple[List[ebh.models.Mutatie], List[ebh.models.Mutatie]]:
+    zettle_raw: list[ebh.models.Mutatie],
+) -> tuple[list[ebh.models.Mutatie], list[ebh.models.Mutatie]]:
     """Select new Zettle transactions from DataFrame."""
     client = ebh.EboekhoudenClient()
 

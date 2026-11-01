@@ -1,4 +1,5 @@
 """Mock EboekhoudenClient."""
+
 import eboekhouden_python as ebh
 
 
@@ -7,7 +8,6 @@ class MockClient:
 
     def __init__(self):
         """Init."""
-        pass
 
     def get_relaties(self):
         """Mock get_relaties."""
@@ -32,6 +32,4 @@ class MockClient:
 
     def mutatie_exists(self, mutatie):
         """Mock mutatie_exists."""
-        if mutatie.omschrijving == "test1":
-            return True
-        return False
+        return mutatie.omschrijving == "test1"

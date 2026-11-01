@@ -1,13 +1,13 @@
 """Page to track software versions."""
+
 import platform
+
+import eboekhouden_python as ebh
+import openpyxl
+import pandas as pd
 import streamlit as st
 import tomli
-import eboekhouden_python as ebh
-import pandas as pd
-import openpyxl
-
 from footer import footer
-
 
 with open("../pyproject.toml", "rb") as f:
     pyproject = tomli.load(f)

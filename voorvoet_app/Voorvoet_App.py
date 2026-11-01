@@ -1,4 +1,5 @@
 """Start page of the streamit app."""
+
 import streamlit as st
 from footer import footer
 

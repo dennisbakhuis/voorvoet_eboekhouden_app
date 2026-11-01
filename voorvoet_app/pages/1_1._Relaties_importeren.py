@@ -1,15 +1,15 @@
 """1.1. Relaties importeren page of the streamit app."""
+
 import sys
 import time
 from pathlib import Path
 
-import streamlit as st
 import eboekhouden_python as ebh
+import streamlit as st
 
 sys.path.append(str(Path(__file__).resolve().parent))
-from relaties import process_relaties, select_new_relaties, generate_relatie_objects
 from footer import footer
-
+from relaties import generate_relatie_objects, process_relaties, select_new_relaties
 
 st.markdown(
     """
@@ -43,7 +43,7 @@ if uploaded_relatie_file is not None:
         ]:
             file_ok = True
         else:
-            raise Exception("De kolommen van het Excel bestand kloppen niet.")
+            raise ValueError("De kolommen van het Excel bestand kloppen niet.")
     except ValueError as e:
         st.markdown(
             f"""

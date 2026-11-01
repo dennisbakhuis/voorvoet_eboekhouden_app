@@ -1,10 +1,10 @@
 """Overview of new Zettle transactions."""
-from typing import List
-import pandas as pd
+
 import eboekhouden_python as ebh
+import pandas as pd
 
 
-def zettle_mutatie_overview(new_mutaties: List[ebh.models.Mutatie]) -> pd.DataFrame:
+def zettle_mutatie_overview(new_mutaties: list[ebh.models.Mutatie]) -> pd.DataFrame:
     """Overview of new Zettle transactions."""
     rows = []
     for ix, mutatie in enumerate(new_mutaties):
