@@ -4,23 +4,23 @@ version = "0.3.2"
 description = "Frontend app to import data from Voorvoet.nl to E-boekhouden.nl."
 authors = [{ name = "Dennis Bakhuis", email = "git@bakhuis.nu" }]
 readme = "README.md"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.15,<3.16"
 dependencies = [
-    "pandas>=2.2.3",
+    "pandas>=3.1.0",
     "openpyxl>=3.1.5",
-    "eboekhouden-python>=0.3.0",
-    "streamlit>=1.41.1",
-    "tomli>=2.2.1",
+    "eboekhouden-python>=0.4.2",
+    "streamlit>=1.66.1",
+    "tomli>=2.5.0",
     "htbuilder>=0.9.0",
 ]
 
 [dependency-groups]
 dev = [
-    "pre-commit>=4.0.1",
-    "pytest-cov>=6.0.0",
-    "pytest>=8.3.4",
-    "coverage>=7.6.10",
-    "ipykernel>=6.29.5",
+    "pre-commit>=4.7.0",
+    "pytest-cov>=7.1.0",
+    "pytest>=9.2.0",
+    "coverage>=7.17.0",
+    "ipykernel>=7.4.0",
 ]
 
 [build-system]
@@ -31,3 +31,4 @@ build-backend = "hatchling.build"
 pythonpath = [".", "./voorvoet_app"]
 addopts = ["--import-mode=importlib"]
 filterwarnings = ["ignore::DeprecationWarning"]
+
